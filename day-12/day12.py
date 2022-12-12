@@ -22,40 +22,23 @@ for i, line in enumerate(lines):
             map[i][j] = s.index(c)
 
 def bfs(start_coord, end_coord):
-    steps = float('inf')
     queue = [(start_coord, 0)]
     visited = set()
-
     while queue:
-
         current_node, step = queue.pop(0)
         i, j = current_node
         if current_node == end_coord:
-            steps = min(steps, step)
+            return step
         if current_node not in visited:
             visited.add(current_node)
-            for dx, dy in [(0,1) , (0, -1), (1, 0), (-1 ,0)]:
-
+            for dx, dy in [(0,1) , (0, -1), (1, 0), (-1 ,0)]:   
                 if 0 <= (i + dx) < len(map) and 0 <= j + dy < len(map[0]):
                     if map[i + dx][j + dy] - map[i][j]  <= 1:
                         queue.append(((i + dx, j + dy), step + 1))
-    return steps
-
+    
+    return float('inf')
 print('part 1: ' + str(bfs(start_coord, end_coord)))
 minimal_dist = float('inf')
 for start_coord in start_coords:
     minimal_dist = min(minimal_dist, bfs(start_coord, end_coord))
 print('part 2: ' + str(minimal_dist))
-
-
-
-
-
-        
-
-
-
-    
-
-
-
